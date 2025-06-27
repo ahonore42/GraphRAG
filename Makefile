@@ -55,7 +55,7 @@ switch-to-dev:
 # Run locally with uv (no Docker)
 run:
 	@echo "🏃 Running locally with uv..."
-	uvicorn main:app --reload --host 0.0.0.0 --port 8000
+	. .venv/bin/activate && uvicorn main:app --reload --host 0.0.0.0 --port 8000
 
 # Build optimized image
 build:
