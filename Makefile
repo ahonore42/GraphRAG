@@ -69,6 +69,12 @@ build:
 	@echo "📊 Image size:"
 	@docker images neo4j-graphrag-api:latest
 
+# Format code with ruff
+format:
+	@echo "💅 Formatting code with ruff..."
+	. .venv/bin/activate && ruff format .
+	@echo "✅ Formatting complete"
+
 # Check status and health
 status:
 	@echo "📊 Current Docker services:"
