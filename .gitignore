@@ -1,0 +1,53 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+ENV/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Environment files with secrets
+.env.local
+.env.prod
+.env.*.local
+.env
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# macOS
+.DS_Store
+.DS_Store?
+._*
+
+# Build artifacts
+dist/
+build/
+*.egg-info/
+
+# Logs
+*.log
+logs/
+
+# Database files (if any local DBs)
+*.db
+*.sqlite
+*.sqlite3
+
+# Docker volumes data (if mounted locally)
+neo4j_data/
+qdrant_data/
+redis_data/
+
+# Temporary files
+.tmp/
+tmp/
