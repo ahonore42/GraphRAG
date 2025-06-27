@@ -6,8 +6,8 @@ from fastapi.middleware.trustedhost import TrustedHostMiddleware
 from fastapi.responses import JSONResponse
 import uvicorn
 
-from src.core.graphrag_connection import check_neo4j_connection, check_qdrant_connection
-from src.core.redis_connection import check_redis_connection
+from src.core.db.graphrag_connection import check_neo4j_connection, check_qdrant_connection
+from src.core.db.redis_connection import check_redis_connection
 
 from src.config import settings
 
