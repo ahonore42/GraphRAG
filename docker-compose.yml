@@ -60,7 +60,7 @@ services:
       - .:/app
     networks:
       - graphrag-net
-    command: graphrag-api
+    
 
 volumes:
   neo4j_data:
