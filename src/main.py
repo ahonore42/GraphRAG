@@ -11,13 +11,21 @@ from neo4j import AsyncGraphDatabase
 from qdrant_client import QdrantClient
 import redis
 
-from src.core.db.connections import check_neo4j_connection, check_qdrant_connection, check_redis_connection
+from src.core.db.connections import (
+    check_neo4j_connection,
+    check_qdrant_connection,
+    check_redis_connection,
+)
 
 from src.config import settings
 
 # Configure logging
-logging.basicConfig(level=settings.LOG_LEVEL, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logging.basicConfig(
+    level=settings.LOG_LEVEL,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+)
 logger = logging.getLogger(__name__)
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -27,20 +35,24 @@ async def lifespan(app: FastAPI):
     try:
         # Initialize Neo4j Driver
         global neo4j_driver
-        neo4j_driver = AsyncGraphDatabase.driver(settings.NEO4J_URL, auth=(settings.NEO4J_USERNAME, settings.NEO4J_PASSWORD))
+        neo4j_driver = AsyncGraphDatabase.driver(
+            settings.NEO4J_URL, auth=(settings.NEO4J_USERNAME, settings.NEO4J_PASSWORD)
+        )
         await neo4j_driver.verify_connectivity()
         logger.info("Neo4j driver initialized and connected.")
 
         # Initialize Qdrant Client
         global qdrant_client
-        qdrant_client = QdrantClient(url=settings.QDRANT_URL, api_key=settings.QDRANT_API_KEY)
-        qdrant_client.get_collections() # Verify connection
+        qdrant_client = QdrantClient(
+            url=settings.QDRANT_URL, api_key=settings.QDRANT_API_KEY
+        )
+        qdrant_client.get_collections()  # Verify connection
         logger.info("Qdrant client initialized and connected.")
 
         # Initialize Redis Client
         global redis_client
         redis_client = redis.from_url(settings.REDIS_URL)
-        redis_client.ping() # Verify connection
+        redis_client.ping()  # Verify connection
         logger.info("Redis client initialized and connected.")
 
     except Exception as e:
@@ -61,6 +73,7 @@ async def lifespan(app: FastAPI):
         redis_client.close()
         logger.info("Redis client closed.")
 
+
 app = FastAPI(
     title="Neo4j GraphRAG API",
     description="API for Neo4j GraphRAG application with seamless local-to-production setup.",
@@ -71,7 +84,7 @@ app = FastAPI(
 )
 
 # Add TrustedHostMiddleware for security
-app.add_middleware(TrustedHostMiddleware, allowed_hosts=["*"]) # Adjust in production
+app.add_middleware(TrustedHostMiddleware, allowed_hosts=["*"])  # Adjust in production
 
 # Configure CORS
 origins = [settings.FRONTEND_DOMAIN] if settings.FRONTEND_DOMAIN else ["*"]
@@ -83,6 +96,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 @app.get("/health")
 async def health_check(
@@ -101,9 +115,11 @@ async def health_check(
         "log_level": settings.LOG_LEVEL,
     }
 
+
 @app.get("/config")
 async def get_config():
     return JSONResponse(content=settings.model_dump())
+
 
 def main():
     uvicorn.run(
@@ -113,6 +129,7 @@ def main():
         reload=settings.ENVIRONMENT == "development",
         workers=1 if settings.ENVIRONMENT == "development" else os.cpu_count() or 1,
     )
+
 
 if __name__ == "__main__":
     logger.info(f"Starting application in {settings.ENVIRONMENT} mode...")

@@ -1,7 +1,8 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(env_file='.env', extra='ignore')
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
     ENVIRONMENT: str = "development"
     LOG_LEVEL: str = "INFO"
@@ -16,5 +17,6 @@ class Settings(BaseSettings):
     QDRANT_API_KEY: str | None = None
 
     REDIS_URL: str = "redis://redis:6379"
+
 
 settings = Settings()
