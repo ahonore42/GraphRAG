@@ -1,0 +1,16 @@
+[project]
+name = "neo4j-graphrag-api"
+version = "0.1.0"
+description = "Neo4j GraphRAG API with seamless local-to-production setup"
+readme = "README.md"
+requires-python = ">=3.13.5"
+dependencies = [
+    "fastapi>=0.104.1",
+    "uvicorn[standard]>=0.24.0",
+    "neo4j>=5.15.0",
+    "neo4j-graphrag[qdrant]>=1.7.0",
+    "qdrant-client>=1.7.0",
+    "redis>=6.2.0",
+    "pydantic>=2.5.0",
+    "pydantic-settings>=2.1.0",
+]
