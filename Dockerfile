@@ -1,7 +1,11 @@
 FROM python:3.13.5-alpine
 
-# Install latest version of uvicorn
-COPY --from=ghcr.io/astral-sh/latest /uv /uvx /usr/local/bin/
+# Install uv
+RUN apk add --no-cache curl tar && \
+    curl -LO https://github.com/astral-sh/uv/releases/download/0.1.35/uv-x86_64-unknown-linux-musl.tar.gz && \
+    tar -xzf uv-x86_64-unknown-linux-musl.tar.gz && \
+    mv uv-x86_64-unknown-linux-musl/uv /usr/local/bin/uv && \
+    rm -rf uv-x86_64-unknown-linux-musl.tar.gz uv-x86_64-unknown-linux-musl
 
 # Set uv version to match python version
 RUN uv venv 3.13.5
