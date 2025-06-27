@@ -49,6 +49,11 @@ switch-to-dev:
 	@echo "# Development configuration" > .env
 	@echo "ENVIRONMENT=development" >> .env
 	@echo "LOG_LEVEL=DEBUG" >> .env
+	@echo "QDRANT_URL=http://localhost:6333" >> .env
+	@echo "REDIS_URL=redis://localhost:6379" >> .env
+	@echo "NEO4J_URL=neo4j://localhost:7687" >> .env
+	@echo "NEO4J_USERNAME=neo4j" >> .env
+	@echo "NEO4J_PASSWORD=password" >> .env
 	@echo "✅ Created development .env file"
 	@echo "💡 Now run: make dev"
 
