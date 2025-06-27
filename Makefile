@@ -29,8 +29,7 @@ switch-to-prod:
 	@echo "🔄 Switching to PRODUCTION configuration..."
 	@echo "# Production configuration" > .env
 	@echo "ENVIRONMENT=production" >> .env
-	@echo "RELOAD=false" >> .env
-	@echo "WORKERS=4" >> .env
+	@echo "LOG_LEVEL=INFO" >> .env
 	@echo "" >> .env
 	@echo "# Update these with your hosted service URLs:" >> .env
 	@echo "NEO4J_URL=neo4j+s://your-instance.databases.neo4j.io" >> .env
@@ -49,15 +48,14 @@ switch-to-dev:
 	@echo "🔄 Switching to DEVELOPMENT configuration..."
 	@echo "# Development configuration" > .env
 	@echo "ENVIRONMENT=development" >> .env
-	@echo "RELOAD=true" >> .env
-	@echo "WORKERS=1" >> .env
+	@echo "LOG_LEVEL=DEBUG" >> .env
 	@echo "✅ Created development .env file"
 	@echo "💡 Now run: make dev"
 
 # Run locally with uv (no Docker)
 run:
 	@echo "🏃 Running locally with uv..."
-	uv run uvicorn main:app --reload --host 0.0.0.0 --port 8000
+	uvicorn main:app --reload --host 0.0.0.0 --port 8000
 
 # Build optimized image
 build:

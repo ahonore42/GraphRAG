@@ -1,4 +1,4 @@
-FROM python:3.13.5-alpine
+FROM python:3.12.4-alpine
 
 # Install uv
 RUN apk add --no-cache curl tar && \
@@ -6,9 +6,6 @@ RUN apk add --no-cache curl tar && \
     tar -xzf uv-x86_64-unknown-linux-musl.tar.gz && \
     mv uv-x86_64-unknown-linux-musl/uv /usr/local/bin/uv && \
     rm -rf uv-x86_64-unknown-linux-musl.tar.gz uv-x86_64-unknown-linux-musl
-
-# Set uv version to match python version
-RUN uv venv 3.13.5
 
 # Create non-root user
 RUN addgroup -g 1001 -S appgroup && \
@@ -22,11 +19,14 @@ RUN chown -R appuser:appgroup /app
 # Switch to non-root user
 USER appuser
 
+# Create virtual environment
+RUN uv venv
+
 # Copy project files
 COPY --chown=appuser:appgroup pyproject.toml ./
 
 # Install dependencies
-RUN uv pip sync --frozen
+RUN uv pip sync pyproject.toml
 
 # Copy application code
 COPY --chown=appuser:appgroup . .
