@@ -51,8 +51,7 @@ services:
       - QDRANT_API_KEY=${QDRANT_API_KEY}
       - REDIS_URL=${REDIS_URL:-redis://redis:6379}
       - ENVIRONMENT=${ENVIRONMENT:-development}
-      - RELOAD=${RELOAD:-true}
-      - WORKERS=${WORKERS:-1}
+      - FRONTEND_DOMAIN=${FRONTEND_DOMAIN}
       - LOG_LEVEL=${LOG_LEVEL:-INFO}
       - HOST=0.0.0.0
       - PORT=8000

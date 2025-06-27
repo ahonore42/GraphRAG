@@ -26,7 +26,7 @@ USER appuser
 COPY --chown=appuser:appgroup pyproject.toml ./
 
 # Install dependencies
-RUN uv sync --frozen
+RUN uv pip sync --frozen
 
 # Copy application code
 COPY --chown=appuser:appgroup . .
