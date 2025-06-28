@@ -103,7 +103,7 @@ clean:
 help:
 	@echo "🚀 Neo4j GraphRAG API Commands (LATEST Docker Images):"
 	@echo ""
-	@echo "🐍 Python: 3.12.4-alpine | 📊 Neo4j: 2025.05.0 | 🔍 Qdrant: v1.14.3 | 📦 Redis: 8-alpine"
+	@echo "🐍 Python: 3.12.4-alpine | 📊 Neo4j: 2025.05.0 | 🔍 Qdrant: v1.14.1 | 📦 Redis: 8-alpine"
 	@echo ""
 	@echo "💡 Optional: Use Python 3.14.0b3-alpine for bleeding edge (change Dockerfile)"
 	@echo ""
