@@ -116,11 +116,6 @@ async def health_check(
     }
 
 
-@app.get("/config")
-async def get_config():
-    return JSONResponse(content=settings.model_dump())
-
-
 def main():
     uvicorn.run(
         "main:app",
