@@ -1,6 +1,8 @@
 # Neo4j GraphRAG API
 
-This project provides a FastAPI application for a Neo4j GraphRAG solution, designed for seamless local development and production deployment using Docker.
+![Project Version](https://img.shields.io/badge/version-0.1.0-blue)
+
+This project provides a robust and scalable FastAPI application designed for a Neo4j GraphRAG solution. It emphasizes modern Python development practices, containerization with Docker, and automated continuous integration/continuous deployment (CI/CD) using GitHub Actions to ensure code quality, reliability, and efficient deployment.
 
 ## Table of Contents
 - [Project Structure](#project-structure)
@@ -10,15 +12,19 @@ This project provides a FastAPI application for a Neo4j GraphRAG solution, desig
   - [Development Mode (with Docker Compose)](#development-mode-with-docker-compose)
   - [Local API Only (without Docker)](#local-api-only-without-docker)
 - [Configuration](#configuration)
+- [Testing](#testing)
+- [Code Quality](#code-quality)
+- [CI/CD Pipeline](#ci/cd-pipeline)
 - [Stopping Services](#stopping-services)
 - [Makefile Commands](#makefile-commands)
 
-## Project Structure
+<details>
+<summary>Project Structure</summary>
 
 The project follows a structured layout to enhance maintainability and scalability:
 
 ```
-/root/
+/
 ├───.dockerignore
 ├───.env.example
 ├───.gitignore
@@ -39,7 +45,9 @@ The project follows a structured layout to enhance maintainability and scalabili
 │   │       └───health.py   # Example: health check router
 │   ├───core/               # Core application components (e.g., database connections, dependencies)
 │   │   ├───__init__.py
-│   │   └───dependencies.py # Example: dependency injection for database sessions
+│   │   └───db/             # Database connection management
+│   │       ├───__init__.py
+│   │       └───connections.py # Consolidated database connection setup and health checks
 │   ├───schemas/            # Pydantic models for request/response validation and serialization
 │   │   ├───__init__.py
 │   │   └───item.py         # Example: ItemCreate, ItemRead models
@@ -50,11 +58,16 @@ The project follows a structured layout to enhance maintainability and scalabili
 │       └───__init__.py
 ├───tests/                  # Unit and integration tests
 │   ├───__init__.py
-│   └───test_main.py
+│   ├───test_config.py      # Tests for configuration loading
+│   └───test_main.py        # Tests for main application endpoints (e.g., health check)
+├───.github/                # GitHub specific configurations
+│   └───workflows/          # GitHub Actions workflow definitions
+│       └───ci.yml          # Main CI/CD pipeline workflow
 ├───__pycache__/
 ├───.git/...
 └───.venv/...
 ```
+</details>
 
 ## Prerequisites
 

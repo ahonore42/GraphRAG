@@ -75,6 +75,12 @@ format:
 	. .venv/bin/activate && ruff format .
 	@echo "✅ Formatting complete"
 
+# Lint code with ruff
+lint:
+	@echo "🔍 Linting code with ruff..."
+	. .venv/bin/activate && ruff check .
+	@echo "✅ Linting complete"
+
 # Check status and health
 status:
 	@echo "📊 Current Docker services:"
