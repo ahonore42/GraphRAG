@@ -143,6 +143,89 @@ LOG_LEVEL=DEBUG
 # FRONTEND_DOMAIN=http://localhost:3000 # For CORS, if applicable
 ```
 
+## Testing
+
+The project includes a comprehensive test suite to ensure the reliability and correctness of the application. Tests are written using `pytest` and cover various aspects, including configuration loading and API endpoint functionality.
+
+### Running Tests
+
+To execute the test suite, use the following `make` command:
+
+```bash
+make test
+```
+
+This command will activate the project's virtual environment and run all tests discovered by `pytest`.
+
+### Test Structure
+
+Tests are located in the `tests/` directory and are organized as follows:
+
+*   `tests/test_config.py`: Contains tests for the `src/config.py` module, verifying that application settings are loaded correctly from default values, environment variables, and `.env` files. These tests use `pytest`'s `monkeypatch` fixture to isolate environment variables and ensure deterministic results.
+*   `tests/test_main.py`: Contains integration tests for the main FastAPI application endpoints, such as the `/health` endpoint. These tests use `fastapi.testclient.TestClient` to simulate HTTP requests and `unittest.mock` to mock external database dependencies (Neo4j, Qdrant, Redis), ensuring tests are fast and do not require live database connections.
+
+## Code Quality
+
+Code quality is enforced using `ruff`, a high-performance linter and formatter.
+
+### Linting
+
+To run the linter and identify potential issues in the codebase, use:
+
+```bash
+make lint
+```
+
+### Formatting
+
+To automatically format the code according to the project's standards, use:
+
+```bash
+make format
+```
+
+This command leverages `ruff format` to ensure consistent code style across the project.
+
+## CI/CD Pipeline
+
+This project utilizes GitHub Actions for its Continuous Integration/Continuous Deployment (CI/CD) pipeline. The pipeline automates the build, test, and quality checks for every code change, ensuring that only high-quality, functional code is merged into the `main` branch.
+
+The CI/CD workflow is defined in `.github/workflows/ci.yml` and consists of the following stages:
+
+*   **Build (`build_image` job):**
+    *   Builds the Docker image for the application.
+    *   Pushes the built image to GitHub Container Registry (`ghcr.io`).
+    *   Ensures the Docker image is always up-to-date with the latest code.
+
+*   **Test (`run_tests` job):**
+    *   Installs project dependencies.
+    *   Executes the `pytest` test suite.
+    *   Verifies that all application functionalities work as expected.
+
+*   **Lint & Format Check (`lint_and_format_check` job):**
+    *   Installs project dependencies.
+    *   Runs `ruff check` to enforce linting rules.
+    *   Runs `ruff format --check` to verify code formatting compliance.
+    *   Ensures code adheres to defined style guides and best practices.
+
+### Triggering the Pipeline
+
+The CI/CD pipeline is automatically triggered on:
+
+*   **Pushes to the `main` branch:** Ensures that all code merged into the main branch is validated.
+*   **Pull Requests targeting the `main` branch:** Provides immediate feedback on code changes before they are merged, helping to prevent regressions and maintain code quality.
+
+### Troubleshooting CI/CD Failures
+
+If a CI/CD job fails, review the logs in the GitHub Actions tab of your repository. Common reasons for failure include:
+
+*   **Test Failures:** Indicates a bug or regression in the code.
+*   **Linting/Formatting Issues:** Code does not adhere to the project's style guidelines.
+*   **Dependency Conflicts:** Issues during dependency installation or compatibility problems.
+*   **Build Errors:** Problems during the Docker image build process.
+
+Address the identified issues in your code, commit the changes, and push them to trigger a new pipeline run.
+
 ## Stopping Services
 
 To stop and remove all running Docker containers and their associated volumes:
