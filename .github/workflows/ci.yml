@@ -11,6 +11,9 @@ on:
 jobs:
   build_image:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write # Grant write permissions for packages
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
